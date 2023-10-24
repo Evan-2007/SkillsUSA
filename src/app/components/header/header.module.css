@@ -1,0 +1,13 @@
+.header{
+    width: 100vw;
+    height: 8vh;
+    background-color: blue;
+}
+.links{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    margin-right: 10vw;
+    margin-left: 10vw;
+}
