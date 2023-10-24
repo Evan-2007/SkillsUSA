@@ -2,7 +2,7 @@ const Events = () => {
     return ( 
         <div>
             <p>
-                Events
+                yes
             </p>
         </div>
      );
