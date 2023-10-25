@@ -13,23 +13,25 @@ datasource db {
 
 model MSEvents {
   id        Int      @id @default(autoincrement())
-  name      String
-  date      DateTime @default(now())
+  title      String
+  date      String
   location  String
   Body      String
+  time      String
 }
 
 model YLCEvents {
   id        Int      @id @default(autoincrement())
-  name      String
-  date      DateTime @default(now())
+  title      String
+  date      String
   location  String
   Body      String
+  time      String
 }
 
 model MSNews {
   id        Int      @id @default(autoincrement())
-  name      String
+  title      String
   date      DateTime @default(now())
   location  String
   Body      String
@@ -37,7 +39,7 @@ model MSNews {
 
 model YLCNews {
   id        Int      @id @default(autoincrement())
-  name      String
+  title      String
   date      DateTime @default(now())
   location  String
   Body      String
@@ -45,14 +47,16 @@ model YLCNews {
 
 model MSOfficers {
   id        Int      @id @default(autoincrement())
-  name      String
+  title      String
   image    String
   Body      String
+  role     String
 }
 
 model YLCOfficers {
   id        Int      @id @default(autoincrement())
-  name      String
+  title      String
   image    String
   Body      String
+  role     String
 }
