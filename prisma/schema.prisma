@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model MSEvents {
+  id        Int      @id @default(autoincrement())
+  name      String
+  date      DateTime @default(now())
+  location  String
+  Body      String
+}
+
+model YLCEvents {
+  id        Int      @id @default(autoincrement())
+  name      String
+  date      DateTime @default(now())
+  location  String
+  Body      String
+}
+
+model MSNews {
+  id        Int      @id @default(autoincrement())
+  name      String
+  date      DateTime @default(now())
+  location  String
+  Body      String
+}
+
+model YLCNews {
+  id        Int      @id @default(autoincrement())
+  name      String
+  date      DateTime @default(now())
+  location  String
+  Body      String
+}
+
+model MSOfficers {
+  id        Int      @id @default(autoincrement())
+  name      String
+  image    String
+  Body      String
+}
+
+model YLCOfficers {
+  id        Int      @id @default(autoincrement())
+  name      String
+  image    String
+  Body      String
+}

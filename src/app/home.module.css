@@ -1,0 +1,22 @@
+.container{
+    width: 100vw;
+    height: 100%;
+    padding-top: 8vh;
+}
+.welcometextcon{
+    width: 55vw;
+}
+.welcometext{
+    font-size: 6vw;
+    position: absolute;
+    color: #03396c ;
+    width: inherit;
+}
+.events{
+
+}
+.upComming{
+    padding-top: 3vh;
+    font-size: 2vw;
+    text-align: center;
+}

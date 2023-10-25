@@ -43,3 +43,19 @@ https://skillsusa.gecs.dev
 https://skillsusa.evanc.dev
 
 https://skillsusa-production.up.railway.app
+
+# Prisma
+
+
+Test Postgres
+```bash
+pg_isready -d railway -h roundhouse.proxy.rlwy.net -p 27121 -U postgres
+```
+Prisma
+Name skillsusa
+
+```bash
+npm run prisma:studio
+
+npm run migrate:dev --name init
+```
