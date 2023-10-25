@@ -2,9 +2,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, generate prisma client then run the development server:
 
 ```bash
+#generate prisma client
+
+npx prisma generate
+
+
+#run dev server
+
 npm run dev
 # or
 yarn dev
@@ -58,4 +65,9 @@ Name skillsusa
 npm run prisma:studio
 
 npm run migrate:dev --name init
+```
+
+Prisma client must be updated with each cnage made to the prisma schemia using
+```bash
+npx prisma generate
 ```
