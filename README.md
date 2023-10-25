@@ -38,8 +38,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 Latest build can be found at one of the following domains:
 
-skillsusa.gecs.dev
+https://skillsusa.gecs.dev
 
-skillsusa.evanc.dev
+https://skillsusa.evanc.dev
 
-skillsusa-production.up.railway.app
+https://skillsusa-production.up.railway.app
