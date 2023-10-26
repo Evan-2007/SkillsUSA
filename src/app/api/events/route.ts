@@ -25,7 +25,7 @@ export async function POST(req: Request) {
 
 
 export async function GET(
-    req: NextApiRequest,
+    req: Request,
     res: NextApiResponse<any>,
 ) {
     const result = await prisma.msevents.findMany();
