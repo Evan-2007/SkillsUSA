@@ -1,11 +1,11 @@
-import { prisma } from '../../../lib/db/client';
+import { prisma } from '../../../../lib/db/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export async function POST(req: Request) {
     const body = await req.json();
     const { title, Body, location, date, time } = body;
 
-    const result = await prisma.msevents.create({
+    const result = await prisma.ylcevents.create({
         data: {
             title: title,
             Body: Body,
@@ -28,7 +28,7 @@ export async function GET(
     req: Request,
     res: NextApiResponse<any>,
 ) {
-    const result = await prisma.msevents.findMany();
+    const result = await prisma.ylcevents.findMany();
     return new Response(JSON.stringify(result), {
         status: 200,
         headers: {
