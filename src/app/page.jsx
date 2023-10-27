@@ -1,7 +1,26 @@
+'use client'
 import Image from 'next/image'
 import styles from './home.module.css'
+import { useEffect, useState } from 'react'
+import cookies from 'js-cookie'
 
 export default function Home() {
+
+  
+  const [site, setSite] = useState(null);
+
+  useEffect(() => {
+    const currentSite = cookies.get('site');
+    console.log(currentSite);
+    setSite(currentSite);
+}, []);
+
+
+  // setCookie("name", "value", {
+  //   expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+  //   httpOnly: true,
+  // });
+
   return (
     <div className={styles.container}>
       <div className={styles.welcome}>
@@ -24,7 +43,7 @@ export default function Home() {
       <div className={styles.events}>
         <div>
           <p className={styles.upComming}>
-            Up Comming Events
+            Upcoming Events
           </p>
         </div>
       </div>

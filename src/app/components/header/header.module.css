@@ -31,3 +31,13 @@
 .logo{
     position: absolute;
 }
+.selectsite{
+    width: 100vw;
+    height: 3vh;
+    background-color: white;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: black;
+}
