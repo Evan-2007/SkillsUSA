@@ -27,7 +27,7 @@ export default function NavBar() {
 
     const toggleSite = () => {
         const newSite = site === 'Yreka' ? 'Mt Shasta' : 'Yreka';
-        cookies.set('site', newSite, { path: '/' });
+        cookies.set('site', newSite, { path: '/', expires: 365 });
         setSite(newSite);
         Router.push('/')
     };

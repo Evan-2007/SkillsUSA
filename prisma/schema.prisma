@@ -18,34 +18,38 @@ model msevents {
   location  String
   Body      String
   time      String
+  published Boolean  @default(false)
 }
 
-model YLCEvents {
+model ylcevents {
   id        Int      @id @default(autoincrement())
   title      String
   date      String
   location  String
   Body      String
   time      String
+  published Boolean  @default(false)
 }
 
-model MSNews {
+model msnews {
   id        Int      @id @default(autoincrement())
   title      String
   date      DateTime @default(now())
   location  String
   Body      String
+  published Boolean  @default(false)
 }
 
-model YLCNews {
+model ylcnews {
   id        Int      @id @default(autoincrement())
   title      String
   date      DateTime @default(now())
   location  String
   Body      String
+  published Boolean  @default(false)
 }
 
-model MSOfficers {
+model msofficers {
   id        Int      @id @default(autoincrement())
   title      String
   image    String
@@ -53,10 +57,30 @@ model MSOfficers {
   role     String
 }
 
-model YLCOfficers {
+model ylcofficers {
   id        Int      @id @default(autoincrement())
   title      String
   image    String
   Body      String
   role     String
+}
+
+model users {
+  id        Int      @id @default(autoincrement())
+  username   String  @unique
+  password   String
+  //persissions
+  ms     Boolean  @default(false)
+  active   Boolean  @default(false)
+  events    Boolean  @default(false)
+  news      Boolean  @default(false)
+  officers  Boolean  @default(false)
+  users    Boolean  @default(false)
+}
+model sessions {
+  id        Int      @id @default(autoincrement())
+  sessionid   String  @unique
+  username    String
+  expires   DateTime 
+  createdAt DateTime @default(now())
 }
