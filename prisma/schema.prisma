@@ -64,3 +64,23 @@ model ylcofficers {
   Body      String
   role     String
 }
+
+model users {
+  id        Int      @id @default(autoincrement())
+  username   String  @unique
+  password   String
+  //persissions
+  ms     Boolean  @default(false)
+  active   Boolean  @default(false)
+  events    Boolean  @default(false)
+  news      Boolean  @default(false)
+  officers  Boolean  @default(false)
+  users    Boolean  @default(false)
+}
+model sessions {
+  id        Int      @id @default(autoincrement())
+  sessionid   String  @unique
+  username    String
+  expires   DateTime 
+  createdAt DateTime @default(now())
+}
