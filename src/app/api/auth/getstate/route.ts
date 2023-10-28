@@ -4,9 +4,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { cookies } from 'next/headers'
 
     export async function GET(req: Request, res: NextApiResponse) {
-     const cookieStore = cookies(req, res)
-     console.log(req.cookies)
-     const session_token = cookieStore.get('token')
+     const cookieStore = cookies()
+     const session_token = cookieStore.get('session_token')
      if (!session_token) {
          return new Response(JSON.stringify({ error: 'Missing session token' }), {
              status: 400,
