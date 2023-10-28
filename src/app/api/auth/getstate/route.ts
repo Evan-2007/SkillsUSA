@@ -45,7 +45,7 @@ import { cookies } from 'next/headers'
     
 }
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request, res: NextApiResponse) {
     try {
         const body = await req.json();
         const { session_token } = body
