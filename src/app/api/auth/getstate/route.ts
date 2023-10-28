@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 //import cookies from 'js-cookie';
 import { cookies } from 'next/headers'
 
-    export async function GET(req: NextApiRequest, res: NextApiResponse) {
+    export async function GET(req: Request, res: NextApiResponse) {
      const cookieStore = cookies(req, res)
      console.log(req.cookies)
      const session_token = cookieStore.get('token')

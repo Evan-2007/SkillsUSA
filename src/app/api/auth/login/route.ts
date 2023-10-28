@@ -7,7 +7,7 @@ import crypto from 'crypto';
 const expires = process.env.SESSION_EXPIRES || '7';
 const saltRounds = 10;
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request, res: NextApiResponse) {
     try {
         const body = await req.json();
         const { username, password } = body;
