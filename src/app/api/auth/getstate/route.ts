@@ -24,6 +24,34 @@ import { cookies } from 'next/headers'
              headers: { 'Content-Type': 'application/json' },
          });
         }
+
+        const currentDate = new Date();
+        currentDate.setDate(currentDate.getDate());
+        const formattedDate = currentDate.toISOString();
+
+        if (new Date(session.expires) < new Date(formattedDate)) {
+            const deleteSession = await prisma.sessions.delete({
+                where: { sessionid: session_token.value },
+            });
+            if (!deleteSession) {
+                return new Response(JSON.stringify({ error: 'Error Removing session from database please report this error along with this token ', session_token }), {
+                    status: 418,
+                    headers: { 'Content-Type': 'application/json' },
+                });
+            }
+            return new Response(JSON.stringify({ error: 'Session expired' }), {
+                status: 418,
+                headers: { 'Content-Type': 'application/json' },
+            });
+        }
+
+
+
+        const checkdate = (new Date(session.expires) < new Date(formattedDate)) 
+
+
+
+
      
      const user = await prisma.users.findUnique({
          where: { username: session.username },
@@ -37,9 +65,9 @@ import { cookies } from 'next/headers'
     }
 
     const { password, ...userWithoutPassword } = user;
-     return new Response(JSON.stringify({ userWithoutPassword }), {
+     return new Response(JSON.stringify({ userWithoutPassword, session, checkdate }), {
          status: 200,
-         headers: { 'Content-Type': 'application/json' },
+         headers: { 'Content-Type': 'application/json',  },
      });
     
 }
@@ -67,6 +95,28 @@ export async function POST(req: Request, res: NextApiResponse) {
             });
         }
 
+        const currentDate = new Date();
+        currentDate.setDate(currentDate.getDate());
+        const formattedDate = currentDate.toISOString();
+
+
+        if (new Date(session.expires) > new Date(formattedDate)) {
+            const deleteSession = await prisma.sessions.delete({
+                where: { sessionid: session_token },
+            });
+            if (!deleteSession) {
+                return new Response(JSON.stringify({ error: 'Error Removing session from database please report this error along with this token ', session_token }), {
+                    status: 418,
+                    headers: { 'Content-Type': 'application/json' },
+                });
+            }
+            return new Response(JSON.stringify({ error: 'Session expired' }), {
+                status: 418,
+                headers: { 'Content-Type': 'application/json' },
+            });
+        }
+
+        if (new Date(session.expires) < new Date(formattedDate)) {
         const user = await prisma.users.findUnique({
             where: { username: session.username },
         });
@@ -77,9 +127,10 @@ export async function POST(req: Request, res: NextApiResponse) {
                 headers: { 'Content-Type': 'application/json' },
             });
         }
-
         return new Response(
             JSON.stringify({
+                expires: session.expires,
+                session_id : session.sessionid,
                 username: user.username,
                 id: user.id,
                 ms: user.ms,
@@ -92,6 +143,10 @@ export async function POST(req: Request, res: NextApiResponse) {
                 status: 200,
                 headers: { 'Content-Type': 'application/json' },
             });
+
+        }
+
+
     } catch (error) {
         console.error('Error in POST:', error);
         return new Response(JSON.stringify({ error: 'Internal server error' }), {
