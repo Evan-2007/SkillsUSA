@@ -6,6 +6,7 @@ import cookies from 'js-cookie'
 export default function AddEvent (){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const domain = process.env.NEXT_PUBLIC_DOMAIN_ENV
     const handlSubmit = async (e: (React.SyntheticEvent)) => {
         e.preventDefault();  // Prevent the default form submit action
         
@@ -22,7 +23,7 @@ export default function AddEvent (){
             console.log(Response)
             
             if (Response.token) {
-                cookies.set('session_token', Response.token, { expires: 7 });
+//                cookies.set('session_token', Response.token, { expires: 7, secure: true, sameSite: 'strict', path: '/', domain: domain, httpOnly: true});
                 window.location.href = '/admin';
             }
             else {

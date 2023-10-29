@@ -47,9 +47,10 @@ export async function POST(req: Request, res: NextApiResponse) {
                 },
             });
 
-            return new Response(JSON.stringify({ token }), {
+            const dateUTC = currentDate.toUTCString();
+            return new Response(JSON.stringify( "Logged In" ), {
                 status: 200,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'Set-Cookie': `session_token=${token}; HttpOnly; Path=/; Expires=${dateUTC}; SameSite=Strict; Secure=true` },
             });
         } else {
             return new Response(JSON.stringify({ error: 'Password incorrect' }), {

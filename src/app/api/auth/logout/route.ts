@@ -31,8 +31,16 @@ export async function GET(req: Request) {
             headers: { 'Content-Type': 'application/json' },
         });
     }
+
+    const date = new Date();
+    date.setDate(date.getDate() - 1);
+    const expiresPast = date.toUTCString();
+
     return new Response(JSON.stringify({ success: 'Session deleted' }), {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json', 
+            'Set-Cookie': `session_token=; HttpOnly; Path=/; Expires=${expiresPast}; SameSite=Strict; Secure`,
+        },
     });
 }
