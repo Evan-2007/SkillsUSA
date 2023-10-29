@@ -1,11 +1,9 @@
 import { cookies } from 'next/headers'
 import { prisma } from '../../../../lib/db/client';
-import { useRouter } from 'next/navigation'
 
 //removes session from database but cookie dose not get deleted. starting a new session will overwire the current cookie.
 
 export async function GET(req: Request) {
-    const router = useRouter()
     const cookieStore = cookies()
     const session_token = cookieStore.get('session_token')
     if (!session_token) {
@@ -33,8 +31,16 @@ export async function GET(req: Request) {
             headers: { 'Content-Type': 'application/json' },
         });
     }
+
+    const date = new Date();
+    date.setDate(date.getDate() - 1);
+    const expiresPast = date.toUTCString();
+
     return new Response(JSON.stringify({ success: 'Session deleted' }), {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json', 
+            'Set-Cookie': `session_token=; HttpOnly; Path=/; Expires=${expiresPast}; SameSite=Strict; Secure`,
+        },
     });
 }

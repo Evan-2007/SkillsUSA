@@ -19,7 +19,7 @@ import { cookies } from 'next/headers'
 
 
      if (!session) {
-         return new Response(JSON.stringify({ error: 'Session not found' }), {
+         return new Response(JSON.stringify({ error: 'Session not found or expired' }), {
              status: 418,
              headers: { 'Content-Type': 'application/json' },
          });
