@@ -13,18 +13,25 @@ export async function POST(req: Request, res: Response) {
 
   const cookieStore = cookies()
   const maybeSessionToken = cookieStore.get('session_token')
+  console.log("maybeSessionToken value:", maybeSessionToken);
+  console.log("typeof maybeSessionToken:", typeof maybeSessionToken);
 
-  if (typeof maybeSessionToken !== 'string') {
-
+  if (!maybeSessionToken || typeof maybeSessionToken.value !== 'string') {
     return new Response(JSON.stringify({ error: 'Missing session token' }), {
-      status: 400,
+      status: 401,
       headers: {
         'Content-Type': 'application/json',
       },
     });
-  }
+}
+
+
+  type SessionToken = {
+    value: string;
+  };
   
-  const sessionToken: string = maybeSessionToken;
+  const sessionToken: SessionToken = { value: maybeSessionToken.value };
+  console.log(sessionToken)
   const state = await getState(sessionToken);
 
   if (typeof state.user !== 'object') {

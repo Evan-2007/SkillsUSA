@@ -1,6 +1,12 @@
 import { prisma } from '../db/client';
 
-async function getState(sessionToken: string) {
+type SessionToken = {
+    value: string;
+  };
+
+
+async function getState(sessionToken: SessionToken) {
+
 
     if (!sessionToken) {
         return(JSON.stringify({ error: 'Missing session token' }), {
