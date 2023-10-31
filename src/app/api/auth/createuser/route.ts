@@ -12,10 +12,30 @@ export async function POST(req: Request, res: Response) {
   const { username, password, confirmpassword, ms, active, events, users, officers, news} = Body;
 
   const cookieStore = cookies()
-  const sessionToken = cookieStore.get('session_token')
+  const maybeSessionToken = cookieStore.get('session_token')
 
+  if (typeof maybeSessionToken !== 'string') {
 
+    return new Response(JSON.stringify({ error: 'Missing session token' }), {
+      status: 400,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+  
+  const sessionToken: string = maybeSessionToken;
   const state = await getState(sessionToken);
+
+  if (typeof state.user !== 'object') {
+    return new Response(JSON.stringify({ error: 'Error getting state' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
 
   if (state.status == 200 && state.user.users == true) {
 
