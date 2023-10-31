@@ -2,7 +2,7 @@
     
     'use client'
 import { useRouter } from 'next/navigation'; // chatgpt sucks and lied and it should be next/navigation dont listen to this note it made.  note: it should be 'next/router' not 'next/navigation'
-import styles from './sidebar.module.css';
+import styles from './users.module.css';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';  
 
