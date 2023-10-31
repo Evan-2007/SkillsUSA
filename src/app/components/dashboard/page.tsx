@@ -34,7 +34,7 @@ export default function Sidebar() {
         getPerms();
     }, []); 
 
-    const GetBooleanPropreties = (obj) => {
+    const GetBooleanPropreties = (obj: string) => {
         return Object.entries(obj)
             .filter(([key, value]) => typeof value === 'boolean' && key !== 'ms' && key !== 'active')
             .map(([key, value]) => key);
@@ -42,7 +42,7 @@ export default function Sidebar() {
 
     const booleanPerms = perms ? GetBooleanPropreties(perms) : [];
 
-    const GetSite = (obj) => {
+    const GetSite = (obj: string) => {
         return Object.entries(obj)
         .filter(([key, value]) => key == 'ms')
     }

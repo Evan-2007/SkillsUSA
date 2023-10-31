@@ -35,7 +35,7 @@ export default function Users(){    const [loading, setLoading] = useState(true)
         getPerms();
     }, []); 
 
-    const GetBooleanPropreties = (obj) => {
+    const GetBooleanPropreties = (obj: string) => {
         return Object.entries(obj)
             .filter(([key, value]) => typeof value === 'boolean' && key !== 'ms' && key !== 'active')
             .map(([key, value]) => key);
@@ -43,7 +43,7 @@ export default function Users(){    const [loading, setLoading] = useState(true)
 
     const booleanPerms = perms ? GetBooleanPropreties(perms) : [];
 
-    const GetSite = (obj) => {
+    const GetSite = (obj: string) => {
         return Object.entries(obj)
         .filter(([key, value]) => key == 'ms')
     }
