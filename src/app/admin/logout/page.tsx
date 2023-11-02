@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function Logout() {
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const logout = async () => {
