@@ -29,7 +29,7 @@ export default function AddEvent (){
             console.log(Response)
             
             if (response.status == 200) {
-                router.push('/admin/dashboard')
+                window.location.href = '/admin/dashboard';
             }
             else {
                 console.log(Response)

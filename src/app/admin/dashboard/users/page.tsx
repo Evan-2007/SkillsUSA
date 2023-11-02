@@ -1,5 +1,5 @@
 'use client'
-import { useRouter } from 'next/navigation';  // Corrected import
+import { useRouter } from 'next/navigation';
 import styles from './styles.module.css';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -37,20 +37,44 @@ export default function Sidebar() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.page}>
-                {users.map(user => (
-                    <div className={styles.user} key={user.username}>
-                        <Link href={'/admin/dashboard/users/' + user.username}>
-                            {user.username}
-                            {'      '}      
-                            Permissions:        
-                            {Object.keys(user).filter(key => user[key] === true && key !== 'username').map(trueKey => (
-                                <span key={trueKey}> {trueKey.charAt(0).toUpperCase() + trueKey.slice(1)},</span>
-                            ))}
-                        </Link> 
-                    </div>
-                ))}
-            </div>
+            <table className={styles.table}>
+                <tbody>
+                    <tr className={styles.row}>
+                    <td className={styles.td}>
+                            <th>Username</th>
+                        </td>
+                        <td className={styles.td}>
+                            <th>Permissions</th>
+                        </td>
+                        <td className={styles.td}>
+                            <th>Actions</th>
+                        </td>
+                    </tr>
+                    {users.map(user => (
+                        <tr className={styles.row} key={user.username}>
+                            <td className={styles.td}>
+                                <Link href={'/admin/dashboard/users/' + user.username}>
+                                    {user.username}
+                                </Link>
+                            </td>
+                            <td className={styles.td}>
+                                 {Object.keys(user).filter(key => user[key] === true && key !== 'username' && key !== "ms").map(trueKey => (
+                                    <span key={trueKey} className={styles.permissions}> {trueKey.charAt(0).toUpperCase() + trueKey.slice(1)}</span>
+
+                                ))}
+                                <Link href={"/admin/user/editpermissions/" + user.username} className={styles.editPermissions}>Edit </Link>
+                            </td>
+                            <td className={styles.td}>
+                                <Link href={'/admin/dashboard/users/' + user.username}>
+                                    <button className={styles.button}>Edit User</button>
+                                {user.admin !== 'true' }
+                                </Link>
+                                
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }
