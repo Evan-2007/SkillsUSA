@@ -36,7 +36,7 @@ export default function Sidebar() {
 
     const GetBooleanPropreties = (obj: string) => {
         return Object.entries(obj)
-            .filter(([key, value]) => typeof value === 'boolean' && key !== 'ms' && key !== 'active')
+            .filter(([key, value]) => typeof value === 'boolean' && value === true && key !== 'ms' && key !== 'active')
             .map(([key, value]) => key);
     };
 
@@ -57,7 +57,7 @@ export default function Sidebar() {
                 <div className={styles.options}>
                     {booleanPerms.map(( key, value ) => (
                         <div className={styles.option} key={value}>
-                            <Link href={'/admin/'+key}></Link>
+                            <Link href={'/admin/dashboard/'+key}>{key}</Link>
                         </div>
                     ))}
                 </div>

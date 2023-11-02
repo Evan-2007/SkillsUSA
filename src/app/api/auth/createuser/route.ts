@@ -70,7 +70,7 @@ export async function POST(req: Request, res: Response) {
         data: {
           username: username,
           password: hash,
-          ms: ms,
+          ms: state.user.ms,
           active: active,
           events: events,
           users: users,
@@ -132,3 +132,87 @@ export async function POST(req: Request, res: Response) {
   }
 }
 
+
+
+
+export async function GET(req: Request, res: Response) {
+
+  const cookieStore = cookies()
+  const maybeSessionToken = cookieStore.get('session_token')
+
+
+  if (!maybeSessionToken || typeof maybeSessionToken.value !== 'string') {
+    return new Response(JSON.stringify({ error: 'Missing session token' }), {
+      status: 401,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+}
+
+
+  type SessionToken = {
+    value: string;
+  };
+  
+  const sessionToken: SessionToken = { value: maybeSessionToken.value };
+
+  const state = await getState(sessionToken);
+
+  if (typeof state.user !== 'object') {
+    return new Response(JSON.stringify({ error: 'Error getting state' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+
+  if (state.status == 200 && state.user.users == true) {
+
+
+
+    const userList = await prisma.users.findMany({
+      where: {
+        ms: state.user.ms,
+      },
+      select: {
+        ms: true,
+        username: true,
+        active: true,
+        events: true,
+        users: true,
+        officers: true,
+        news: true,
+
+      },
+    });
+
+    return new Response(JSON.stringify({ success: userList }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+
+  }
+
+  if (state.status == 200 && state.user.users == false) {
+    return new Response(JSON.stringify({ error: 'You do not have permission to create or eddit users. if you believe this is an error cantact an admin or open an issue on github' }), {
+      status: 401,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+  else {
+    return new Response(JSON.stringify({ error: state.headers }), {
+      status: state.status,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}

@@ -3,6 +3,7 @@
     height: 8vh;
     background-color:  #005b96 ;
     position: fixed;
+    z-index: 3;
 }
 .links{
     display: flex;
