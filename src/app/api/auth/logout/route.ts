@@ -17,7 +17,7 @@ export async function GET(req: Request) {
     })
     if (!session) {
         return new Response(JSON.stringify({ error: 'Session not found' }), {
-            status: 418,
+            status: 400,
             headers: { 'Content-Type': 'application/json' },
         });
     }
