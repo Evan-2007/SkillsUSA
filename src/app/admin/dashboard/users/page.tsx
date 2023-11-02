@@ -6,8 +6,14 @@ import Link from 'next/link';
 
 export default function Sidebar() {
     const [loading, setLoading] = useState(true);
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState<User[]>([]);
     const router = useRouter();
+
+    interface User {
+        username: string;
+        [key: string]: any; // This assumes that the user object can have any other keys.
+    }
+    
 
     useEffect(() => {
         const getPerms = async () => {
