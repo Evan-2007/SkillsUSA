@@ -38,7 +38,7 @@ export default function NavBar() {
             getState();
             
 
-    }, [router.route]);
+    }, []);
 
 
     const [site, setSite] = useState(false);
