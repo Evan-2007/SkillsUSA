@@ -1,0 +1,25 @@
+.loading{
+    padding: 12vh;
+    width: 100vw;
+    height: 100vh;
+    font-size: 30vh;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    padding-top: 12vh;
+    width: 15vw;
+    height: 100vh;
+    background-color: aliceblue;
+    color: black;
+    font-size: 3.5vh;
+    text-align: center;
+    position: fixed;
+    z-index: 2;
+    border-top: 1px solid black;
+}
+.option{
+    padding: 2vh;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}

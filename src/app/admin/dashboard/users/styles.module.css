@@ -1,0 +1,51 @@
+.container {
+    color: black;
+    padding-top: 11vh;
+    padding-left: 15vw;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    padding-right: 1px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.row {
+    border: 1px solid black;
+}
+
+.td {
+    padding: 10px;
+    font-size: 1.5vw;
+}
+
+.user {
+    margin-left: 5vw;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    margin-top: 1vh;
+    border-radius: 10px;
+    font-size: 2vw;
+}
+.permissions{
+    background-color:  #0084db ;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 14, 92, 0.75);
+    margin-top: 1vh;
+    border-radius: 10px;
+    font-size: 2vw;
+}
+.editPermissions{
+    background-color:  rgb(230, 51, 51) ;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(92, 0, 0, 0.75);
+    margin-top: 1vh;
+    border-radius: 10px;
+    font-size: 2vw;
+}

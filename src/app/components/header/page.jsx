@@ -4,15 +4,44 @@ import styles from './header.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
 import cookies from 'js-cookie';
-import { useRouter } from 'next/navigation'
-
+import { useRouter } from 'next/navigation';
 
 
 export default function NavBar() {
+    const [loading, setLoading] = useState(true);
+    const [state, setState] = useState(false);
+    const router = useRouter();
 
-    const Router = useRouter();
+        useEffect(() => {
+                const getState = async () => {
+                    try {
+                        const response = await fetch('/api/auth/getstate', {
+                            method: 'GET',
+                            headers: { 'Content-Type': 'application/json' },
+                        })
+                        const data = await response.json();
 
-    const [site, setSite] = useState(null);
+
+                        if (response.status == 200) {
+                            setState(true);
+                        }
+
+
+                    } catch (error) {
+                        console.error("Failed to fetch permissions:", error);
+                        setState(false);
+                    } finally {
+                        setLoading(false);
+                    }
+
+                }
+            getState();
+            
+
+    }, []);
+
+
+    const [site, setSite] = useState(false);
 
     useEffect(() => {
         const currentSite = cookies.get('site');
@@ -55,8 +84,16 @@ export default function NavBar() {
                     Meet the Officers
                 </Link>
                 <Link href="#" className={styles.link}>
-                    More
+                    News
                 </Link>
+
+                
+
+
+                    {state ? <Link href ="/admin/dashboard" className={styles.link}>Admin Dashboard</Link>: <Link href ="/admin/login" className={styles.link}>Login</Link>}
+
+                {state ? <Link href="/admin/logout" className={styles.link}>Logout</Link>: null}
+
             </div>
                 <div className={styles.selectsite}> 
                     <button onClick={toggleSite} >
