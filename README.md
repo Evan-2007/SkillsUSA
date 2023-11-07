@@ -71,3 +71,5 @@ Prisma client must be updated with each cnage made to the prisma schemia using
 ```bash
 npx prisma generate
 ```
+
+yes
