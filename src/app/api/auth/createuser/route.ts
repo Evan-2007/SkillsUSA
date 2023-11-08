@@ -216,3 +216,108 @@ export async function GET(req: Request, res: Response) {
     });
   }
 }
+
+
+//edit permissions
+
+export async function PATCH(req: Request, res: Response) {
+
+  const cookieStore = cookies()
+  const maybeSessionToken = cookieStore.get('session_token')
+
+
+  if (!maybeSessionToken || typeof maybeSessionToken.value !== 'string') {
+    return new Response(JSON.stringify({ error: 'Missing session token' }), {
+      status: 401,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+}
+
+
+  type SessionToken = {
+    value: string;
+  };
+  
+  const sessionToken: SessionToken = { value: maybeSessionToken.value };
+
+  const state = await getState(sessionToken);
+
+  if (typeof state.user !== 'object') {
+    return new Response(JSON.stringify({ error: 'Error getting state' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+
+  if (state.status == 200 && state.user.users == true) {
+
+
+    const getUserSite = await prisma.users.findMany({
+      where: {
+        username: username,
+      },
+      select: {
+        ms: true,
+      },
+    });
+
+    if (getUserSite == null)
+    {
+      return new Response(JSON.stringify({ error: 'User does not exist' }), {
+        status: 404,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+    if (getUserSite.ms !== state.user.ms) {
+      return new Response(JSON.stringify({ error: 'You do not have permission to edit this user' }), {
+        status: 401,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+  
+    const EditPermissions = await prisma.users.update({
+      where: {
+        username: username,
+      },
+      data: {
+        active: active,
+        events: events,
+        users: users,
+        officers: officers,
+        news: news,
+      },
+    });
+
+      return new Response(JSON.stringify({ success: EditPermissions }), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+  if (state.status == 200 && state.user.users == false) {
+    return new Response(JSON.stringify({ error: 'You do not have permission to create or eddit users. if you believe this is an error cantact an admin or open an issue on github' }), {
+      status: 401,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+  else {
+    return new Response(JSON.stringify({ error: state.headers }), {
+      status: state.status,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
