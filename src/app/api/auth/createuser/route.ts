@@ -277,14 +277,15 @@ export async function PATCH(req: Request, res: Response) {
       });
     }
 
-    if (typeof getUserSite.ms !== 'boolean') {
-      return new Response(JSON.stringify({ error: 'missing user site or incorrect database configuration' }), {
+    if (!('ms' in getUserSite)) {
+      return new Response(JSON.stringify({ error: 'Missing session token' }), {
         status: 401,
         headers: {
           'Content-Type': 'application/json',
         },
       });
     }
+    
 
     if (getUserSite.ms !== state.user.ms) {
       return new Response(JSON.stringify({ error: 'You do not have permission to edit this user' }), {
