@@ -277,9 +277,14 @@ export async function PATCH(req: Request, res: Response) {
       });
     }
 
-    type getUserSite = {
-      ms: boolean;
-    };
+    if (typeof getUserSite.ms !== 'boolean') {
+      return new Response(JSON.stringify({ error: 'missing user site or incorrect database configuration' }), {
+        status: 401,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
 
     if (getUserSite.ms !== state.user.ms) {
       return new Response(JSON.stringify({ error: 'You do not have permission to edit this user' }), {
