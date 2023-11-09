@@ -276,6 +276,11 @@ export async function PATCH(req: Request, res: Response) {
         },
       });
     }
+
+    type getUserSite = {
+      ms: boolean;
+    };
+
     if (getUserSite.ms !== state.user.ms) {
       return new Response(JSON.stringify({ error: 'You do not have permission to edit this user' }), {
         status: 401,
