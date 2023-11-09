@@ -267,7 +267,7 @@ export async function PATCH(req: Request, res: Response) {
       },
     });
 
-    if (getUserSite == null)
+    if (!getUserSite)
     {
       return new Response(JSON.stringify({ error: 'User does not exist' }), {
         status: 404,
