@@ -224,7 +224,7 @@ export async function PATCH(req: Request, res: Response) {
 
   const cookieStore = cookies()
   const maybeSessionToken = cookieStore.get('session_token')
-  Body = await req.json();
+  const Body = await req.json();
   const { username, active, events, users, officers, news} = Body;
 
   if (!maybeSessionToken || typeof maybeSessionToken.value !== 'string') {
