@@ -267,7 +267,7 @@ export async function PATCH(req: Request, res: Response) {
       },
     });
 
-    if (!getUserSite)
+    if (getUserSite == null )
     {
       return new Response(JSON.stringify({ error: 'User does not exist' }), {
         status: 404,
@@ -276,7 +276,7 @@ export async function PATCH(req: Request, res: Response) {
         },
       });
     }
-    if (getUserSite !== state.user.ms) {
+    if (getUserSite.ms !== state.user.ms) {
       return new Response(JSON.stringify({ error: 'You do not have permission to edit this user' }), {
         status: 401,
         headers: {
