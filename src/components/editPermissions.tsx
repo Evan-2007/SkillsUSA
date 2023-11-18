@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 
-export function edit permissions() {
+export function editPermissions() {
   return (
     <div className="w-full max-w-md mx-auto">
       <Card>
